@@ -18,18 +18,20 @@ cd grimshield
 
 Every run shows the Grimshield banner, detects your distro, and walks through each hardening module one at a time. Nothing is changed without your explicit yes.
 
-## Supported systems (v1)
+## Supported systems (v2)
 
 | Distro           | Package manager | Support level |
 |-------------------|------------------|----------------|
 | Ubuntu             | apt              | Full           |
 | Kali Linux          | apt              | Full           |
 | CentOS / RHEL / Fedora | dnf          | Full           |
-| Arch, openSUSE, others | pacman/zypper | Partial (detected, package steps skipped until backend is added) |
+| Arch Linux          | pacman           | Full           |
+| openSUSE            | zypper           | Full           |
+| Others (Alpine, etc.)  | —            | Detected, package steps skipped |
 
 Grimshield auto-detects your system and adapts. Unsupported package managers are reported clearly rather than causing silent failures — contributions adding new backends are welcome.
 
-## What it does (v1)
+## What it does (v2)
 
 1. **System updates** — enable automatic security updates
 2. **Firewall** — ufw/firewalld with default-deny inbound, SSH preserved
@@ -37,8 +39,16 @@ Grimshield auto-detects your system and adapts. Unsupported package managers are
 4. **Fail2ban** — brute-force protection for SSH
 5. **User & permission audit** — UID 0 accounts, empty passwords, world-writable files in `/etc`
 6. **Kernel/sysctl hardening** — network and kernel security parameters
+7. **Rootkit/malware scan** — installs and runs rkhunter, checks if the machine is already compromised
+8. **File integrity monitoring** — installs AIDE, creates a baseline to detect future file tampering
+9. **Audit logging** — installs and enables auditd for system audit trails
+10. **Mandatory Access Control** — checks/enables AppArmor or SELinux enforcing mode, whichever is present
 
 Each step is optional. Say no to anything you don't want.
+
+### Scan-only mode
+
+Run `./grimshield.sh --scan-only` to see findings and recommendations without changing anything on the system. Useful for reviewing a machine before committing to changes.
 
 ## Report
 

@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 chmod +x "$SCRIPT_DIR/grimshield.sh"
 chmod +x "$SCRIPT_DIR"/modules/*.sh
-chmod +x "$SCRIPT_DIR"/core/*.sh
+chmod +x "$SCRIPT_DIR"/core/*.sh 2>/dev/null
 chmod +x "$SCRIPT_DIR"/core/backend/*.sh
 chmod +x "$SCRIPT_DIR"/assets/*.sh
 
